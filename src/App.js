@@ -39,7 +39,8 @@ class App extends Component {
   };
 
   render() {
-    const { contacts, filter } = this.state;
+    const { filter } = this.state;
+    const searchContact = this.getIncludesContact();
     return (
       <div className="Phonebook">
         <h2>Phonebook</h2>
@@ -49,10 +50,7 @@ class App extends Component {
         />
         <h3>Contacts</h3>
         <Filter onSearch={this.changeFilterInput} value={filter} />
-        <PhoneList
-          contacts={contacts}
-          searchContact={this.getIncludesContact}
-        />
+        <PhoneList contacts={searchContact} />
       </div>
     );
   }
