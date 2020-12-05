@@ -1,1 +1,1 @@
-export { default } from './PhoneForm';
+export { default } from './FormPhone';
