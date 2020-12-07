@@ -1,0 +1,36 @@
+.Form {
+  background-color: #283e3e;
+  padding: 15px;
+  margin: 7px;
+  box-shadow: 2px 4px 4px 2px rgb(0 0 0/0.5);
+}
+
+.Form_label {
+  display: flex;
+  color: white;
+}
+
+.Form_label > input {
+  height: 20px;
+  margin: 15px;
+  border: none;
+  outline: none;
+  font-family: 'Droid Sans Mono Slashed';
+  font-size: 19px;
+  color: #777575;
+}
+
+.Button {
+  border: none;
+  padding: 7px 10px;
+  background-color: #037777;
+  color: white;
+  font-weight: 500;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 1px 2px 2px 0 rgb(0 0 0/0.5);
+  transition: box-shadow 250ms linear;
+}
