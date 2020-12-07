@@ -1,5 +1,9 @@
+import PropTypes from 'prop-types';
+
+import s from './Filter.module.css';
+
 const Filter = ({ value, onSearch }) => (
-  <label>
+  <label className={s.Filter_label}>
     Find contact by name:
     <input
       type="search"
@@ -9,5 +13,10 @@ const Filter = ({ value, onSearch }) => (
     />
   </label>
 );
+
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+  onSearch: PropTypes.func.isRequired,
+};
 
 export default Filter;

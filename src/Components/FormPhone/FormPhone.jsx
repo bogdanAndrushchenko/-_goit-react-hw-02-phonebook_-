@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import shortId from 'shortid';
 
 import s from './FormPhone.module.css';
@@ -9,6 +10,11 @@ const INITIAL_STATE_FORM = {
 };
 
 class FormPhone extends Component {
+  static propTypes = {
+    onFormSubmit: PropTypes.func.isRequired,
+    onValid: PropTypes.func.isRequired,
+  };
+
   state = {
     ...INITIAL_STATE_FORM,
   };
@@ -68,7 +74,6 @@ class FormPhone extends Component {
             value={number}
             placeholder="Enter your number"
             onChange={this.handleInputChange}
-            id={'unicID'}
           />
         </label>
         <button type="submit" className={s.Button}>
