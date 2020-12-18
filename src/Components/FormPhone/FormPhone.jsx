@@ -1,46 +1,41 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import shortId from 'shortid';
 
 import s from './FormPhone.module.css';
 
-const INITIAL_STATE_FORM = {
-  name: '',
-  number: '',
-};
+const FormPhone = ({ onFormSubmit, onValid }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-class FormPhone extends Component {
-  static propTypes = {
-    onFormSubmit: PropTypes.func.isRequired,
-    onValid: PropTypes.func.isRequired,
-  };
-
-  state = {
-    ...INITIAL_STATE_FORM,
-  };
-
-  handleInputChange = e => {
+  const handleInputChange = e => {
     const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+      default:
+        console.log(name);
+    }
   };
 
-  handleSubmitForm = e => {
+  const handleSubmitForm = e => {
     e.preventDefault();
     const id = shortId.generate();
-    const { onFormSubmit } = this.props;
 
-    const formIsValid = this.validatorInput();
+    const formIsValid = validatorInput();
     if (!formIsValid) {
       return;
     }
 
-    onFormSubmit({ id, ...this.state });
-    this.resetForm();
+    onFormSubmit({ id, name, number });
+    resetForm();
   };
 
-  validatorInput = () => {
-    const { name, number } = this.state;
-    const { onValid } = this.props;
+  const validatorInput = () => {
     if (!name || !number) {
       alert('Field "name" and "number" is entry. Try again!');
       return false;
@@ -48,40 +43,43 @@ class FormPhone extends Component {
     return onValid(name);
   };
 
-  resetForm = () => {
-    this.setState({ ...INITIAL_STATE_FORM });
+  const resetForm = () => {
+    setName('');
+    setNumber('');
   };
 
-  render() {
-    const { name, number } = this.state;
-    return (
-      <form onSubmit={this.handleSubmitForm} className={s.Form}>
-        <label className={s.Form_label}>
-          <p>Name :</p>
-          <input
-            name="name"
-            type="text"
-            value={name}
-            placeholder="Enter your name"
-            onChange={this.handleInputChange}
-          />
-        </label>
-        <label className={s.Form_label}>
-          <p>Number :</p>
-          <input
-            name="number"
-            type="number"
-            value={number}
-            placeholder="Enter your number"
-            onChange={this.handleInputChange}
-          />
-        </label>
-        <button type="submit" className={s.Button}>
-          Add contact
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleSubmitForm} className={s.Form}>
+      <label className={s.Form_label}>
+        <p>Name :</p>
+        <input
+          name="name"
+          type="text"
+          value={name}
+          placeholder="Enter your name"
+          onChange={handleInputChange}
+        />
+      </label>
+      <label className={s.Form_label}>
+        <p>Number :</p>
+        <input
+          name="number"
+          type="number"
+          value={number}
+          placeholder="Enter your number"
+          onChange={handleInputChange}
+        />
+      </label>
+      <button type="submit" className={s.Button}>
+        Add contact
+      </button>
+    </form>
+  );
+};
+
+FormPhone.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired,
+  onValid: PropTypes.func.isRequired,
+};
 
 export default FormPhone;
