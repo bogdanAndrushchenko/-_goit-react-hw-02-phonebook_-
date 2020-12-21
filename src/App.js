@@ -15,7 +15,9 @@ const testContact = [
 ];
 
 const App = () => {
-  const [contacts, setContacts] = useState([...testContact]);
+  const [contacts, setContacts] = useState(() => {
+    return JSON.parse(localStorage.getItem('contacts')) ?? [...testContact];
+  });
   const [filter, setFilter] = useState('');
 
   const addContact = newContact =>
@@ -44,26 +46,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    const contacts = JSON.parse(localStorage.getItem('contacts'));
-    setContacts(contacts);
-    console.log('useEffect localStorage.getItem');
-  }, []);
-  // useEffect(()=>{
-  //     if (contacts !== prevState.contacts) {
-  //                 localStorage.setItem('contacts', JSON.stringify(contacts));
-  //             }
-  // },[contacts])
+    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
-  // const componentDidUpdate(prevProps, prevState)
-  // {
-  //     const {contacts} = this.state;
-  //     if (contacts !== prevState.contacts) {
-  //         localStorage.setItem('contacts', JSON.stringify(contacts));
-  //     }
-  // }
-
-  // const {filter} = this.state;
-  // const searchContact = getFilterContact();
   return (
     <div className="Phonebook">
       <h2 className="Phonebook_title">Phonebook</h2>
