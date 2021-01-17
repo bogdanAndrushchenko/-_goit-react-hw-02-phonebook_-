@@ -1,24 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react'; //, useEffect
+import { connect } from 'react-redux';
 
 import FormPhone from './Components/FormPhone';
 import PhoneList from './Components/PhoneList';
 import Filter from './Components/Filter';
 
 import './App.css';
-import testContact from './redux/testContactItems';
+import * as actions from './redux/actions';
 
-const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    return JSON.parse(localStorage.getItem('contacts')) ?? [...testContact];
-  });
+const App = ({ contacts, addContact, deleteContact }) => {
+  // const [contacts, setContacts] = useState(() => {
+  //     return JSON.parse(localStorage.getItem('contacts')) ?? [...testContact];
+  // });
   const [filter, setFilter] = useState('');
 
-  const addContact = newContact =>
-    setContacts(contacts => [...contacts, newContact]);
-
-  const deleteContact = contactID => {
-    setContacts(contacts => contacts.filter(({ id }) => id !== contactID));
-  };
+  // const addContact = newContact =>
+  //     setContacts(contacts => [...contacts, newContact]);
+  //
+  // const deleteContact = contactID => {
+  //     setContacts(contacts => contacts.filter(({id}) => id !== contactID));
+  // };
 
   const handleCheckUniqueContact = name => {
     const onName = !!contacts.find(contact => contact.name === name);
@@ -38,9 +39,9 @@ const App = () => {
     );
   };
 
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //     window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
   return (
     <div className="Phonebook">
@@ -53,4 +54,14 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = state => ({
+  contacts: state.contacts.items,
+  // filter: state.contacts.filter,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addContact: newContact => dispatch(actions.addContact(newContact)),
+  deleteContact: contactID => dispatch(actions.deleteContact(contactID)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

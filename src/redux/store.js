@@ -5,25 +5,32 @@ import testContact from './testContactItems';
 const initialState = {
   contacts: {
     items: [...testContact],
-    filter: '',
+    // filter: '',
   },
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
+const reducer = (state = initialState, { type, payload }) => {
+  switch (type) {
     case 'contact/add':
       return {
         ...state,
         contacts: {
           ...state.contacts,
-          items: [...state.contacts.items, action.payload],
+          items: [...state.contacts.items, payload],
+        },
+      };
+    case 'contact/delete':
+      return {
+        ...state,
+        contacts: {
+          ...state.contacts,
+          items: state.contacts.items.filter(({ id }) => id !== payload),
         },
       };
     default:
       return state;
   }
 };
-
 const store = createStore(reducer);
 
 export default store;

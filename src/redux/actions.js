@@ -1,4 +1,6 @@
-import { ADD_CONTACT, DELETE_CONTACT } from './typeActions';
+import { typeActions } from './typeActions';
+
+const { ADD_CONTACT, DELETE_CONTACT } = typeActions;
 
 export const addContact = newContact => ({
   type: ADD_CONTACT,
