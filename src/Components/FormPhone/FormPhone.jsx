@@ -37,7 +37,7 @@ const FormPhone = ({ onFormSubmit, onValid }) => {
 
   const validatorInput = () => {
     if (!name || !number) {
-      alert('Field "name" and "number" is entry. Try again!');
+      alert('Field "name" or "number" is entry. Try again!');
       return false;
     }
     return onValid(name);
