@@ -6,7 +6,7 @@ import PhoneList from './Components/PhoneList';
 import Filter from './Components/Filter';
 
 import './App.css';
-import * as actions from './redux/actions';
+import * as actions from './redux/contacts/contacts-actions';
 
 const App = ({ contacts, addContact, deleteContact }) => {
   // const [contacts, setContacts] = useState(() => {

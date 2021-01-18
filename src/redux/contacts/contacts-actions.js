@@ -1,4 +1,4 @@
-import { typeActions } from './typeActions';
+import typeActions from './contact-types-actions';
 
 const { ADD_CONTACT, DELETE_CONTACT } = typeActions;
 
