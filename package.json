@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://bogdanAndrushchenko.github.io/-_goit-react-hw-02-phonebook_-",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.4.0",

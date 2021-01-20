@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// import * as contactActions from '../../redux/contacts/contacts-actions';
 import s from './PhoneList.module.css';
-import * as actions from '../../redux/contacts/contacts-actions';
+import actions from '../../redux/contacts/contacts-actions';
 
 const PhoneList = ({ contacts, filter, deleteContact }) => {
   const getFilterContact = () => {

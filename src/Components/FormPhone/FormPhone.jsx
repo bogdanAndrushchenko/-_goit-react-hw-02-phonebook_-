@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
-import { toast } from 'react-toastify';
-
-import * as contactActions from '../../redux/contacts/contacts-actions';
-
+import contactActions from '../../redux/contacts/contacts-actions';
 import s from './FormPhone.module.css';
 
 const FormPhone = ({ contacts, onFormSubmit }) => {
