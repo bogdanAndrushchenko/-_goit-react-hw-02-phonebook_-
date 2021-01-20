@@ -1,10 +1,14 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import shortId from 'shortid';
+
+import { toast } from 'react-toastify';
+
+import * as contactActions from '../../redux/contacts/contacts-actions';
 
 import s from './FormPhone.module.css';
 
-const FormPhone = ({ onFormSubmit, onValid }) => {
+const FormPhone = ({ contacts, onFormSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -24,23 +28,30 @@ const FormPhone = ({ onFormSubmit, onValid }) => {
 
   const handleSubmitForm = e => {
     e.preventDefault();
-    const id = shortId.generate();
-
     const formIsValid = validatorInput();
     if (!formIsValid) {
       return;
     }
 
-    onFormSubmit({ id, name, number });
+    onFormSubmit(name, number);
     resetForm();
+  };
+
+  const handleCheckUniqueContact = name => {
+    const onName = !!contacts.find(contact => contact.name === name);
+    toast.success(`${name} is already in contacts`, { position: 'top-left' });
+    return !onName;
   };
 
   const validatorInput = () => {
     if (!name || !number) {
-      alert('Field "name" or "number" is entry. Try again!');
+      toast.error('Field "name" or "number" is entry. Try again!', {
+        autoClose: 4000,
+        position: 'top-center',
+      });
       return false;
     }
-    return onValid(name);
+    return handleCheckUniqueContact(name);
   };
 
   const resetForm = () => {
@@ -79,7 +90,15 @@ const FormPhone = ({ onFormSubmit, onValid }) => {
 
 FormPhone.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
-  onValid: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+const mapStateToProps = state => ({
+  contacts: state.contacts.items,
+});
 
-export default FormPhone;
+const mapDispatchToProps = dispatch => ({
+  onFormSubmit: (name, number) =>
+    dispatch(contactActions.addContact(name, number)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormPhone);

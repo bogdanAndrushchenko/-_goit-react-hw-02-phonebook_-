@@ -1,12 +1,25 @@
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+// import * as contactActions from '../../redux/contacts/contacts-actions';
 import s from './PhoneList.module.css';
+import * as actions from '../../redux/contacts/contacts-actions';
 
-const PhoneList = ({ contacts, deleteContact }) => {
+const PhoneList = ({ contacts, filter, deleteContact }) => {
+  const getFilterContact = () => {
+    const normalizedFilter = filter.toLowerCase();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter),
+    );
+  };
+
+  const phoneList = getFilterContact();
+
   return (
     <ul className={s.PhoneList}>
-      <p>Total contacts : {contacts.length}</p>
-      {contacts.map(({ id, name, number }) => (
+      <p>Total contacts : {phoneList.length}</p>
+      {phoneList.map(({ id, name, number }) => (
         <li key={id} className={s.PhoneList_item}>
           {name} : <span>{number}</span>
           <button
@@ -29,4 +42,13 @@ PhoneList.propTypes = {
   deleteContact: PropTypes.func.isRequired,
 };
 
-export default PhoneList;
+const mapStateToProps = state => ({
+  contacts: state.contacts.items,
+  filter: state.contacts.filter,
+});
+
+const mapDispatchToProps = dispatch => ({
+  deleteContact: contactID => dispatch(actions.deleteContact(contactID)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhoneList);
