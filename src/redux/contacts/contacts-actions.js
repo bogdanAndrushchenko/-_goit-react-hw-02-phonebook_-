@@ -14,10 +14,17 @@ const addContact = createAction('contact/add', (name, number) => {
 const deleteContact = createAction('contact/delete');
 const onChangeFilter = createAction('contact/filter');
 
+const fetchContactsRequest = createAction('contacts/fetchRequest');
+const fetchContactsSuccess = createAction('contacts/fetchSuccess');
+const fetchContactsError = createAction('contacts/fetchError');
+
 export default {
   addContact,
   deleteContact,
   onChangeFilter,
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
 };
 
 // const addContact = (name, number) => ({
