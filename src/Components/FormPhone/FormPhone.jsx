@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
+import { addContact } from '../../redux/contacts/contacts-operation';
 
-import contactActions from '../../redux/contacts/contacts-actions';
+// import contactActions from '../../redux/contacts/contacts-actions';
 import s from './FormPhone.module.css';
 
 const FormPhone = ({ contacts, onFormSubmit }) => {
@@ -95,8 +96,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onFormSubmit: (name, number) =>
-    dispatch(contactActions.addContact(name, number)),
+  onFormSubmit: (name, number) => dispatch(addContact(name, number)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormPhone);

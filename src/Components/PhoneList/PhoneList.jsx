@@ -4,17 +4,19 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import s from './PhoneList.module.css';
-import actions from '../../redux/contacts/contacts-actions';
-import getContacts from '../../redux/contacts/contacts-operation';
+import {
+  deleteContacts,
+  getContacts,
+} from '../../redux/contacts/contacts-operation';
 
 const PhoneList = ({ contacts, filter, deleteContact }) => {
   const dispatch = useDispatch();
-  const items = useSelector(state => state.contacts.items);
-  console.log(items);
-
+  // // const items = useSelector(state => state.contacts.items);
+  // // console.log(items);
+  // console.log(filter)
   useEffect(() => {
     dispatch(getContacts());
-  }, [dispatch]);
+  }, []);
 
   const getFilterContact = () => {
     const normalizedFilter = filter.toLowerCase();
@@ -58,7 +60,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  deleteContact: contactID => dispatch(actions.deleteContact(contactID)),
+  deleteContact: contactID => dispatch(deleteContacts(contactID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhoneList);

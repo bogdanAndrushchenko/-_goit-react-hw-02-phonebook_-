@@ -1,21 +1,50 @@
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import shortId from 'shortid';
+import {
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
+  addContactsRequest,
+  addContactsSuccess,
+  addContactsError,
+  deleteContactsRequest,
+  deleteContactsSuccess,
+  deleteContactsError,
+} from './contacts-actions';
 
-import actions from './contacts-actions';
+axios.defaults.baseURL = 'http://localhost:4040';
 
-axios.defaults.baseURL = 'http://http://localhost:3000';
-
-const getContacts = () => async dispatch => {
-  dispatch(actions.fetchContactsRequest());
+export const getContacts = () => async dispatch => {
+  dispatch(fetchContactsRequest());
   try {
-    const items = await axios.get('/contacts');
-    dispatch(actions.fetchContactsSuccess(items));
+    const { data } = await axios.get('/contacts');
+    dispatch(fetchContactsSuccess(data));
   } catch (error) {
-    dispatch(actions.fetchContactsError(error));
-    // throw toast.error(error.message, {
-    //     autoClose: 2000,
-    // });
+    dispatch(fetchContactsError(error));
   }
 };
 
-export default getContacts;
+export const addContact = (name, number) => async dispatch => {
+  const item = {
+    id: shortId.generate(),
+    name,
+    number,
+  };
+  dispatch(addContactsRequest());
+  try {
+    const { data } = await axios.post('/contacts', item);
+    dispatch(addContactsSuccess(data));
+  } catch (e) {
+    dispatch(addContactsError(e));
+  }
+};
+
+export const deleteContacts = contactID => async dispatch => {
+  dispatch(deleteContactsRequest());
+  try {
+    await axios.delete(`/contacts/${contactID}`);
+    dispatch(deleteContactsSuccess(contactID));
+  } catch (e) {
+    dispatch(deleteContactsError(e));
+  }
+};
