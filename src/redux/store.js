@@ -12,7 +12,9 @@ import {
 
 import logger from 'redux-logger';
 import storage from 'redux-persist/lib/storage';
-import contactsReducer from './contacts/contacts-reducer';
+import { contactReducers } from './contacts';
+
+const { contactReducer } = contactReducers;
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -31,7 +33,7 @@ const middleware = [
 
 const store = configureStore({
   reducer: {
-    contacts: contactsReducer,
+    contacts: contactReducer,
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import shortId from 'shortid';
-import {
+import { contactActions } from './index';
+
+const {
   fetchContactsRequest,
   fetchContactsSuccess,
   fetchContactsError,
@@ -10,11 +12,11 @@ import {
   deleteContactsRequest,
   deleteContactsSuccess,
   deleteContactsError,
-} from './contacts-actions';
+} = contactActions;
 
 axios.defaults.baseURL = 'http://localhost:4040';
 
-export const getContacts = () => async dispatch => {
+const getContacts = () => async dispatch => {
   dispatch(fetchContactsRequest());
   try {
     const { data } = await axios.get('/contacts');
@@ -24,7 +26,7 @@ export const getContacts = () => async dispatch => {
   }
 };
 
-export const addContact = (name, number) => async dispatch => {
+const addContact = (name, number) => async dispatch => {
   const item = {
     id: shortId.generate(),
     name,
@@ -39,7 +41,7 @@ export const addContact = (name, number) => async dispatch => {
   }
 };
 
-export const deleteContacts = contactID => async dispatch => {
+const deleteContacts = contactID => async dispatch => {
   dispatch(deleteContactsRequest());
   try {
     await axios.delete(`/contacts/${contactID}`);
@@ -47,4 +49,10 @@ export const deleteContacts = contactID => async dispatch => {
   } catch (e) {
     dispatch(deleteContactsError(e));
   }
+};
+
+export default {
+  getContacts,
+  addContact,
+  deleteContacts,
 };

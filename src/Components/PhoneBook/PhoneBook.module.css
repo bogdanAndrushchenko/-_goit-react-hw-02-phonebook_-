@@ -1,0 +1,13 @@
+.Phonebook {
+  margin: 15px auto;
+  padding: 5px;
+  width: 600px;
+  border-radius: 5px;
+  background-color: #222222;
+}
+
+.Phonebook_title {
+  color: pink;
+  font-size: 28px;
+  margin-left: 15px;
+}

@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import { addContact } from '../../redux/contacts/contacts-operation';
 
-// import contactActions from '../../redux/contacts/contacts-actions';
+import { contactOperations, contactSelectors } from '../../redux/contacts';
 import s from './FormPhone.module.css';
+
+const { addContact } = contactOperations;
+const { getItems } = contactSelectors;
 
 const FormPhone = ({ contacts, onFormSubmit }) => {
   const [name, setName] = useState('');
@@ -91,8 +93,9 @@ FormPhone.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+
 const mapStateToProps = state => ({
-  contacts: state.contacts.items,
+  contacts: getItems(state),
 });
 
 const mapDispatchToProps = dispatch => ({
