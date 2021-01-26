@@ -40,7 +40,10 @@ const FormPhone = ({ contacts, onFormSubmit }) => {
 
   const handleCheckUniqueContact = name => {
     const onName = !!contacts.find(contact => contact.name === name);
-    toast.success(`${name} is already in contacts`, { position: 'top-left' });
+    toast.success(`${name} is already in contacts`, {
+      position: 'top-left',
+      autoClose: 4000,
+    });
     return !onName;
   };
 
