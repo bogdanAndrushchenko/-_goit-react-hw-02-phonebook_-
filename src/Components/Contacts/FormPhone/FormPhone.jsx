@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
-import { contactOperations, contactSelectors } from '../../redux/contacts';
+import { contactOperations, contactSelectors } from '../../../redux/contacts';
 import s from './FormPhone.module.css';
 
 const { addContact } = contactOperations;

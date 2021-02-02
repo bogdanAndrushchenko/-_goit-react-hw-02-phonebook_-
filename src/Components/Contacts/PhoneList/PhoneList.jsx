@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import Loader from '../Loader';
-import { contactOperations, contactSelectors } from '../../redux/contacts';
+import Loader from '../../Loader';
+import { contactOperations, contactSelectors } from '../../../redux/contacts';
 import s from './PhoneList.module.css';
 
 const { getContacts, deleteContacts } = contactOperations;
