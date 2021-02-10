@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Typography,
   Paper,
@@ -11,7 +12,9 @@ import {
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'; //LockOutLined
-// import firebase from "../../fire_db";
+import { authOperations } from '../../../redux/auth';
+
+const { logIn } = authOperations;
 
 const styles = theme => ({
   main: {
@@ -49,6 +52,8 @@ const SignIn = ({ classes }) => {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
 
+  const dispatch = useDispatch();
+
   const handleInputChange = ({ target: { name, value } }) => {
     switch (name) {
       case 'email':
@@ -63,15 +68,12 @@ const SignIn = ({ classes }) => {
     setEmail('');
     setPassword('');
   };
-  const login = async () => {
-    try {
-      console.log(email, password, setUser, 'login');
-      // await firebase.login(email,password, setUser )
-      resetForm();
-    } catch (e) {
-      console.error(e.message);
-    }
+  const login = e => {
+    e.preventDefault();
+    dispatch(logIn({ email, password }));
+    resetForm();
   };
+
   return (
     <main className={classes.main}>
       <Paper className={classes.paper}>
@@ -81,11 +83,7 @@ const SignIn = ({ classes }) => {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-        <form
-          className={classes.form}
-          onSubmit={e => e.preventDefault() && false}
-          autoComplete="off"
-        >
+        <form className={classes.form} onSubmit={login} autoComplete="off">
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Email address</InputLabel>
             <Input
@@ -127,6 +125,17 @@ const SignIn = ({ classes }) => {
             className={classes.submit}
           >
             Register
+          </Button>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/"
+            className={classes.submit}
+          >
+            Go back to Home
           </Button>
         </form>
       </Paper>
