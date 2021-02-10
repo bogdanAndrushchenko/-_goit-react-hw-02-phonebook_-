@@ -37,13 +37,13 @@ const loadingReducer = createReducer(false, {
   [deleteContactsError]: () => false,
 });
 
-const contactReducer = combineReducers({
+// const contactReducer =
+
+export default combineReducers({
   items: itemsReducer,
   filter: filterReducer,
   loading: loadingReducer,
 });
-
-export default { contactReducer };
 
 // import actionTypes from './contact-types-actions';
 // const {ADD_CONTACT, DELETE_CONTACT, FILTER_CHANGE} = actionTypes;

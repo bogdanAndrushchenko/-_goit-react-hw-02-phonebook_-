@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Typography,
   Paper,
@@ -11,8 +12,9 @@ import {
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link, withRouter } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-// import firebase from "../../fire_db";
-// console.log(fire_db)
+import { authOperations } from '../../../redux/auth';
+
+const { register } = authOperations;
 
 const styles = theme => ({
   main: {
@@ -50,6 +52,8 @@ const Register = ({ classes }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch();
+
   const handleInputChange = ({ target: { name, value } }) => {
     switch (name) {
       case 'name':
@@ -70,14 +74,12 @@ const Register = ({ classes }) => {
     setPassword('');
   };
 
-  const onRegister = async () => {
-    try {
-      console.log('onRegister');
-      // await firebase.register(name,email,password);
-      resetForm();
-    } catch (e) {
-      console.error(e.message);
-    }
+  const onRegister = e => {
+    e.preventDefault();
+    dispatch(register({ name, email, password }));
+    console.log('onRegister');
+    // await firebase.register(name,email,password);
+    resetForm();
   };
   return (
     <main className={classes.main}>
@@ -88,11 +90,7 @@ const Register = ({ classes }) => {
         <Typography component="h1" variant="h5">
           Register Account:)
         </Typography>
-        <form
-          className={classes.form}
-          onSubmit={e => e.preventDefault() && false}
-          autoComplete="off"
-        >
+        <form className={classes.form} onSubmit={onRegister} autoComplete="off">
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="name">Name</InputLabel>
             <Input
