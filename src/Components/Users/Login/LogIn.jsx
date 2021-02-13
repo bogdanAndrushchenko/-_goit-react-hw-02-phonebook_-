@@ -76,7 +76,7 @@ const SignIn = ({ classes }) => {
 
   return (
     <main className={classes.main}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={{ backgroundColor: '#a1f5b9' }}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>

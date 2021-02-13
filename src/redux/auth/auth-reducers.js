@@ -7,6 +7,7 @@ const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
+  isGettingCurrentUs: false,
 };
 
 const authReducer = createSlice({
@@ -28,10 +29,17 @@ const authReducer = createSlice({
       state.token = null;
       state.isLoggedIn = false;
     },
-    // [getCurrentUser.fulfilled](state, action) {
-    //   state.user = action.payload;
-    //   state.isLoggedIn = true;
-    // },
+    [getCurrentUser.pending](state) {
+      state.isGettingCurrentUs = true;
+    },
+    [getCurrentUser.fulfilled](state, action) {
+      state.user = action.payload;
+      state.isLoggedIn = true;
+      state.isGettingCurrentUs = false;
+    },
+    [getCurrentUser.rejected](state) {
+      state.isGettingCurrentUs = false;
+    },
   },
 });
 console.log(authReducer.caseReducers);

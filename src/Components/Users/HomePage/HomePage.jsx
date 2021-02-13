@@ -1,7 +1,11 @@
+import { useSelector } from 'react-redux';
 import { Typography, Avatar, Paper, Button } from '@material-ui/core';
 import VerifiedUserOutlined from '@material-ui/icons/VerifiedUserOutlined';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
+import { authSelectors } from '../../../redux/auth';
+
+const { getIsLogIn } = authSelectors;
 
 const styles = theme => ({
   main: {
@@ -35,9 +39,10 @@ const styles = theme => ({
 });
 
 const HomePage = ({ classes }) => {
+  const isLogIn = useSelector(getIsLogIn);
   return (
     <main className={classes.main}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={{ backgroundColor: '#72f3e8' }}>
         <Avatar className={classes.avatar}>
           <VerifiedUserOutlined />
         </Avatar>
@@ -67,18 +72,24 @@ const HomePage = ({ classes }) => {
           Login
         </Button>
       </Paper>
-      <Button
-        type="button"
-        fullWidth
-        variant="contained"
-        color="secondary"
-        component={Link}
-        to="/phonebook"
-        className={classes.button}
-        style={{ marginTop: '10px', backgroundColor: 'green' }}
-      >
-        Phonebook
-      </Button>
+      {isLogIn && (
+        <Button
+          type="button"
+          fullWidth
+          variant="contained"
+          color="secondary"
+          component={Link}
+          to="/phonebook"
+          className={classes.button}
+          style={{
+            marginTop: '20px',
+            backgroundColor: 'rgba(73,159,126, 0.85)',
+            height: '50px',
+          }}
+        >
+          Phonebook
+        </Button>
+      )}
     </main>
   );
 };

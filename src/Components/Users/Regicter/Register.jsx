@@ -83,7 +83,7 @@ const Register = ({ classes }) => {
   };
   return (
     <main className={classes.main}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={{ backgroundColor: '#85c196' }}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>

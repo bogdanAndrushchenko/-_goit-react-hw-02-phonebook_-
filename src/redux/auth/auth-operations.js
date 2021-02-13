@@ -49,13 +49,13 @@ const logOut = createAsyncThunk('auth/logout', async credentials => {
   }
 });
 
-// const getCurrentUser = createAsyncThunk('auth/refresh', async () => {
-//   console.log('getCurrentUser');
-// });
+const getCurrentUser = createAsyncThunk('auth/refresh', async () => {
+  console.log('getCurrentUser');
+});
 
 export default {
   register,
   logIn,
   logOut,
-  // getCurrentUser,
+  getCurrentUser,
 };
