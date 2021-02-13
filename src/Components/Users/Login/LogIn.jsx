@@ -76,7 +76,10 @@ const SignIn = ({ classes }) => {
 
   return (
     <main className={classes.main}>
-      <Paper className={classes.paper} style={{ backgroundColor: '#a1f5b9' }}>
+      <Paper
+        className={classes.paper}
+        style={{ backgroundColor: 'rgb(125,217,169,0.8)' }}
+      >
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>

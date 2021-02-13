@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import { authSelectors } from '../../../redux/auth';
 
-const { getIsLogIn } = authSelectors;
+const { getIsLogIn, getUserName } = authSelectors;
 
 const styles = theme => ({
   main: {
@@ -40,14 +40,18 @@ const styles = theme => ({
 
 const HomePage = ({ classes }) => {
   const isLogIn = useSelector(getIsLogIn);
+  const name = useSelector(getUserName);
   return (
     <main className={classes.main}>
-      <Paper className={classes.paper} style={{ backgroundColor: '#72f3e8' }}>
+      <Paper
+        className={classes.paper}
+        style={{ backgroundColor: 'rgba(107,224,214,0.7)' }}
+      >
         <Avatar className={classes.avatar}>
           <VerifiedUserOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Hello Guest!!!
+          Hello {isLogIn ? name : 'Guest'}!!!
         </Typography>
         <Button
           type="submit"
@@ -57,6 +61,7 @@ const HomePage = ({ classes }) => {
           component={Link}
           to="/register"
           className={classes.submit}
+          disabled={isLogIn ? true : false}
         >
           Register
         </Button>
@@ -68,6 +73,7 @@ const HomePage = ({ classes }) => {
           component={Link}
           to="/login"
           className={classes.submit}
+          disabled={isLogIn ? true : false}
         >
           Login
         </Button>
@@ -83,7 +89,7 @@ const HomePage = ({ classes }) => {
           className={classes.button}
           style={{
             marginTop: '20px',
-            backgroundColor: 'rgba(73,159,126, 0.85)',
+            backgroundColor: 'rgb(57,129,69,0.9)',
             height: '50px',
           }}
         >
