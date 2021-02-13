@@ -41,7 +41,7 @@ const store = configureStore({
   middleware,
   devTools: process.env.NODE_ENV === 'development',
 });
-
+// console.log(reducer)
 // const persistor = persistStore(store);persistor
 
 export default store;

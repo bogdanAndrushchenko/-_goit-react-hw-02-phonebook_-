@@ -35,4 +35,5 @@
   outline: none;
   box-shadow: 1px 2px 2px 0 rgb(0 0 0/0.5);
   transition: box-shadow 250ms linear;
+  text-decoration: none;
 }

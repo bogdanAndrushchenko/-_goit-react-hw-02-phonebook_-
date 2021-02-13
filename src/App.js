@@ -8,6 +8,7 @@ import LogIn from './Components/Users/Login';
 import Register from './Components/Users/Regicter';
 import PhoneBook from './Components/Contacts/PhoneBook';
 import PublicRoute from './Components/PublicRoute';
+import PrivateRoute from './Components/PrivateRoute';
 import Loader from './Components/Loader';
 
 import { ToastContainer } from 'react-toastify';
@@ -24,15 +25,20 @@ const App = () => {
           <PublicRoute exact path="/">
             <HomePage />
           </PublicRoute>
-          <PublicRoute exact path="/login" redirectTo="/phonebook">
+          <PublicRoute exact path="/login" redirectTo="/phonebook" restricted>
             <LogIn />
           </PublicRoute>
-          <PublicRoute exact path="/register">
+          <PublicRoute
+            exact
+            path="/register"
+            restricted
+            redirectTo="/phonebook"
+          >
             <Register />
           </PublicRoute>
-          {/*<PrivateRoute path="/phonebook" redirectTo="/login">*/}
-          {/*    <PhoneBook />*/}
-          {/*</PrivateRoute>*/}
+          <PrivateRoute exact path="/phonebook">
+            <PhoneBook />
+          </PrivateRoute>
         </Suspense>
       </Switch>
       <ToastContainer />
@@ -41,3 +47,4 @@ const App = () => {
 };
 
 export default App;
+//redirectTo="/login"

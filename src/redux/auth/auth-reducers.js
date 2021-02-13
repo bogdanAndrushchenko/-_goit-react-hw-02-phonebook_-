@@ -28,11 +28,12 @@ const authReducer = createSlice({
       state.token = null;
       state.isLoggedIn = false;
     },
-    [getCurrentUser.fulfilled](state, action) {
-      state.user = action.payload;
-      state.isLoggedIn = true;
-    },
+    // [getCurrentUser.fulfilled](state, action) {
+    //   state.user = action.payload;
+    //   state.isLoggedIn = true;
+    // },
   },
 });
+console.log(authReducer.caseReducers);
 
 export default authReducer.reducer;

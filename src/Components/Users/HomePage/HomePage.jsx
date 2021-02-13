@@ -66,18 +66,19 @@ const HomePage = ({ classes }) => {
         >
           Login
         </Button>
-        {/*<Button*/}
-        {/*    type="submit"*/}
-        {/*    fullWidth*/}
-        {/*    variant="contained"*/}
-        {/*    color="secondary"*/}
-        {/*    component={Link}*/}
-        {/*    to='/dashboard'*/}
-        {/*    className={classes.submit}*/}
-        {/*>*/}
-        {/*    Dashboard*/}
-        {/*</Button>*/}
       </Paper>
+      <Button
+        type="button"
+        fullWidth
+        variant="contained"
+        color="secondary"
+        component={Link}
+        to="/phonebook"
+        className={classes.button}
+        style={{ marginTop: '10px', backgroundColor: 'green' }}
+      >
+        Phonebook
+      </Button>
     </main>
   );
 };
