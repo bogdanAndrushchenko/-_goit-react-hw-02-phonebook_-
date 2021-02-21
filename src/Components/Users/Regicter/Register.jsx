@@ -13,6 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Link, withRouter } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { authOperations } from '../../../redux/auth';
+import { toast } from 'react-toastify';
 
 const { register } = authOperations;
 
@@ -76,10 +77,23 @@ const Register = ({ classes }) => {
 
   const onRegister = e => {
     e.preventDefault();
+    const formIsValid = validatorInput();
+    if (!formIsValid) {
+      return;
+    }
     dispatch(register({ name, email, password }));
-    console.log('onRegister');
-    // await firebase.register(name,email,password);
     resetForm();
+  };
+
+  const validatorInput = () => {
+    if (!email || !password || !name) {
+      toast.error('Field "email" or "password" or "name"is entry. Try again!', {
+        autoClose: 4000,
+        position: 'top-center',
+      });
+      return false;
+    }
+    return true;
   };
   return (
     <main className={classes.main}>

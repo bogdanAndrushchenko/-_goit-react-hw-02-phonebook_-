@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { authOperations } from './index';
 
-const { register, logIn, logOut, getCurrentUser } = authOperations;
+const { register, logIn, logOut, getRefreshUser } = authOperations;
 
 const initialState = {
   user: { name: null, email: null },
@@ -19,6 +19,11 @@ const authReducer = createSlice({
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
+    // [register.pending](state, action) {
+    //   state.user = { name: null, email: null };
+    //   state.token = null;
+    //   state.isLoggedIn = false;
+    // },
     [logIn.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
@@ -29,19 +34,18 @@ const authReducer = createSlice({
       state.token = null;
       state.isLoggedIn = false;
     },
-    [getCurrentUser.pending](state) {
+    [getRefreshUser.pending](state) {
       state.isGettingCurrentUs = true;
     },
-    [getCurrentUser.fulfilled](state, action) {
+    [getRefreshUser.fulfilled](state, action) {
       state.user = action.payload;
       state.isLoggedIn = true;
       state.isGettingCurrentUs = false;
     },
-    [getCurrentUser.rejected](state) {
+    [getRefreshUser.rejected](state) {
       state.isGettingCurrentUs = false;
     },
   },
 });
-console.log(authReducer.caseReducers);
 
 export default authReducer.reducer;

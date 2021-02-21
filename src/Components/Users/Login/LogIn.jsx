@@ -13,6 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'; //LockOutLined
 import { authOperations } from '../../../redux/auth';
+import { toast } from 'react-toastify';
 
 const { logIn } = authOperations;
 
@@ -50,7 +51,6 @@ const styles = theme => ({
 const SignIn = ({ classes }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -70,8 +70,22 @@ const SignIn = ({ classes }) => {
   };
   const login = e => {
     e.preventDefault();
+    const formIsValid = validatorInput();
+    if (!formIsValid) {
+      return;
+    }
     dispatch(logIn({ email, password }));
     resetForm();
+  };
+  const validatorInput = () => {
+    if (!email || !password) {
+      toast.error('Field "email" or "password" is entry. Try again!', {
+        autoClose: 4000,
+        position: 'top-center',
+      });
+      return false;
+    }
+    return true;
   };
 
   return (

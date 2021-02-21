@@ -1,11 +1,12 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Avatar, Paper, Button } from '@material-ui/core';
 import VerifiedUserOutlined from '@material-ui/icons/VerifiedUserOutlined';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
-import { authSelectors } from '../../../redux/auth';
+import { authSelectors, authOperations } from '../../../redux/auth';
 
 const { getIsLogIn, getUserName } = authSelectors;
+const { logOut } = authOperations;
 
 const styles = theme => ({
   main: {
@@ -41,6 +42,7 @@ const styles = theme => ({
 const HomePage = ({ classes }) => {
   const isLogIn = useSelector(getIsLogIn);
   const name = useSelector(getUserName);
+  const dispatch = useDispatch();
   return (
     <main className={classes.main}>
       <Paper
@@ -51,7 +53,7 @@ const HomePage = ({ classes }) => {
           <VerifiedUserOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Hello {isLogIn ? name : 'Guest'}!!!
+          Hello {isLogIn ? name[0].toUpperCase() + name.slice(1) : 'Guest'}!!!
         </Typography>
         <Button
           type="submit"
@@ -77,6 +79,18 @@ const HomePage = ({ classes }) => {
         >
           Login
         </Button>
+        {isLogIn && (
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={() => dispatch(logOut())}
+            className={classes.submit}
+          >
+            LogOut
+          </Button>
+        )}
       </Paper>
       {isLogIn && (
         <Button

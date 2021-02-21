@@ -3,6 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import { CssBaseline } from '@material-ui/core';
 import { Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import HomePage from './Components/Users/HomePage';
 import LogIn from './Components/Users/Login';
@@ -12,16 +13,23 @@ import PublicRoute from './Components/PublicRoute';
 import PrivateRoute from './Components/PrivateRoute';
 import Loader from './Components/Loader';
 
-import { authSelectors } from './redux/auth';
+import { authSelectors, authOperations } from './redux/auth';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const theme = createMuiTheme();
 const { getFetching } = authSelectors;
+const { getRefreshUser } = authOperations;
 
 const App = () => {
+  const dispatch = useDispatch();
   const isGettingCurrentUs = useSelector(getFetching);
+
+  useEffect(() => {
+    dispatch(getRefreshUser());
+  }, [dispatch]);
+
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
