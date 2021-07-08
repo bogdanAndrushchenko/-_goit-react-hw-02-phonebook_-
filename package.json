@@ -30,13 +30,21 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "netlify deploy -p",
-    "server": "json-server --port 4040 --watch db.json"
+    "server": "json-server --port 4040 --watch db.json",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "eslintConfig": {
+    "globals": {
+      "jest": true,
+      "shallow": true,
+      "render": true,
+      "mount": true
+    },
     "extends": [
       "react-app",
       "react-app/jest"
@@ -55,11 +63,34 @@
     ]
   },
   "devDependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
+    "enzyme": "^3.11.0",
+    "enzyme-to-json": "^3.5.0",
     "husky": "^4.3.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.0",
     "lint-staged": "^10.5.2",
     "prettier": "^2.2.1",
     "prop-types": "^15.7.2",
     "redux-devtools-extension": "^2.13.8",
     "sass-loader": "^10.1.1"
+  },
+  "jest": {
+    "verbose": true,
+    "clearMocks": true,
+    "collectCoverage": true,
+    "setupFilesAfterEnv": [
+      "./src/tests/config/setup_test.js"
+    ],
+    "snapshotSerializers": [
+      "./node_modules/enzyme-to-json/serializer"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "./__mocks__/fileMock.js",
+      "\\.(css|scss)$": "identity-obj-proxy"
+    }
   }
 }
